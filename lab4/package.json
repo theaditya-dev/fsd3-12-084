@@ -4,8 +4,8 @@
   "description": "",
   "main": "prg7.js",
   "scripts": {
-    "start" : "node app.js",
-    "dev" : "nodemon prg7.js"
+    "start": "node app.js",
+    "dev": "nodemon prg7.js"
   },
   "keywords": [],
   "author": "",

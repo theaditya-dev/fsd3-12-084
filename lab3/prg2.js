@@ -1,6 +1,7 @@
 const http = require("http");
 
-const server = http.createServer((req, res) => {
+const server = http.createServer((req, res) => {  
+    
     console.log("Server hit by client");
     // res.write("<h1> Hello Client</h1>");
     res.end("<h1> Hello Client</h1>");
