@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Enquiry</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            min-height:100vh;
+            font-family:Arial,sans-serif;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:40px;
+            background:
+                radial-gradient(circle at 15% 20%,rgba(255,255,255,0.28),transparent 30%),
+                radial-gradient(circle at 85% 25%,rgba(120,100,80,0.35),transparent 35%),
+                radial-gradient(circle at 50% 90%,rgba(180,160,130,0.3),transparent 40%),
+                linear-gradient(135deg,#81786e,#b2aaa0,#665e56);
+            overflow-x:hidden;
+        }
+
+        body::before{
+            content:"";
+            position:fixed;
+            width:400px;
+            height:400px;
+            border-radius:50%;
+            background:rgba(255,255,255,0.18);
+            filter:blur(90px);
+            top:-100px;
+            left:-100px;
+        }
+
+        body::after{
+            content:"";
+            position:fixed;
+            width:450px;
+            height:450px;
+            border-radius:50%;
+            background:rgba(70,60,50,0.3);
+            filter:blur(100px);
+            right:-150px;
+            bottom:-150px;
+        }
+
+        .container{
+            width:100%;
+            max-width:1050px;
+            position:relative;
+            z-index:2;
+        }
+
+        .contact-card{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:35px;
+            padding:45px;
+            border-radius:32px;
+            background:rgba(255,255,255,0.17);
+            border:1px solid rgba(255,255,255,0.38);
+            backdrop-filter:blur(25px);
+            -webkit-backdrop-filter:blur(25px);
+            box-shadow:
+                0 25px 60px rgba(0,0,0,0.25),
+                inset 0 1px 1px rgba(255,255,255,0.35);
+        }
+
+        .info{
+            padding:25px;
+            border-radius:25px;
+            background:rgba(255,255,255,0.13);
+            border:1px solid rgba(255,255,255,0.28);
+            backdrop-filter:blur(18px);
+            -webkit-backdrop-filter:blur(18px);
+            box-shadow:
+                inset 0 1px 1px rgba(255,255,255,0.25),
+                0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        .info h1{
+            font-size:48px;
+            line-height:1.1;
+            color:#fff;
+            margin-bottom:20px;
+            letter-spacing:-1px;
+        }
+
+        .info > p{
+            color:rgba(255,255,255,0.85);
+            line-height:1.7;
+            font-size:16px;
+            margin-bottom:35px;
+        }
+
+        .details{
+            display:flex;
+            flex-direction:column;
+            gap:14px;
+        }
+
+        .details p{
+            padding:17px;
+            border-radius:16px;
+            color:#fff;
+            background:rgba(255,255,255,0.13);
+            border:1px solid rgba(255,255,255,0.22);
+            backdrop-filter:blur(12px);
+            -webkit-backdrop-filter:blur(12px);
+            transition:0.3s;
+        }
+
+        .details p:hover{
+            background:rgba(255,255,255,0.22);
+            transform:translateX(5px);
+        }
+
+        form{
+            padding:25px;
+            border-radius:25px;
+            background:rgba(255,255,255,0.15);
+            border:1px solid rgba(255,255,255,0.32);
+            backdrop-filter:blur(22px);
+            -webkit-backdrop-filter:blur(22px);
+            box-shadow:
+                inset 0 1px 1px rgba(255,255,255,0.25),
+                0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        input,
+        select,
+        textarea{
+            width:100%;
+            margin-bottom:16px;
+            padding:16px 18px;
+            border:none;
+            outline:none;
+            border-radius:15px;
+            font-size:15px;
+            color:#fff;
+            background:rgba(255,255,255,0.14);
+            border:1px solid rgba(255,255,255,0.3);
+            backdrop-filter:blur(12px);
+            -webkit-backdrop-filter:blur(12px);
+            box-shadow:
+                inset 0 1px 2px rgba(255,255,255,0.15),
+                0 5px 15px rgba(0,0,0,0.08);
+            transition:0.3s;
+        }
+
+        input::placeholder,
+        textarea::placeholder{
+            color:rgba(255,255,255,0.72);
+        }
+
+        select{
+            color:rgba(255,255,255,0.8);
+        }
+
+        select option{
+            color:#333;
+            background:#ddd8d2;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus{
+            background:rgba(255,255,255,0.22);
+            border-color:rgba(255,255,255,0.65);
+            box-shadow:0 0 20px rgba(255,255,255,0.12);
+        }
+
+        textarea{
+            resize:none;
+        }
+
+        button{
+            width:100%;
+            padding:16px;
+            border:none;
+            border-radius:16px;
+            font-size:16px;
+            font-weight:bold;
+            color:#fff;
+            cursor:pointer;
+            background:rgba(70,65,60,0.65);
+            border:1px solid rgba(255,255,255,0.35);
+            box-shadow:
+                0 10px 25px rgba(0,0,0,0.2),
+                inset 0 1px 1px rgba(255,255,255,0.3);
+            backdrop-filter:blur(15px);
+            -webkit-backdrop-filter:blur(15px);
+            transition:0.3s;
+        }
+
+        button:hover{
+            background:rgba(255,255,255,0.25);
+            transform:translateY(-3px);
+            box-shadow:0 15px 30px rgba(0,0,0,0.25);
+        }
+
+        #success{
+            margin-top:18px;
+            text-align:center;
+            color:#e8f5e9;
+            font-weight:bold;
+        }
+
+        @media(max-width:800px){
+            body{
+                padding:20px;
+            }
+
+            .contact-card{
+                grid-template-columns:1fr;
+                padding:25px;
+            }
+
+            .info h1{
+                font-size:38px;
+            }
+        }
+
+        @media(max-width:500px){
+            .contact-card{
+                padding:15px;
+                gap:15px;
+            }
+
+            .info,
+            form{
+                padding:20px;
+            }
+
+            .info h1{
+                font-size:32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="contact-card">
+
+        <div class="info">
+
+            <h1>Product Enquiry</h1>
+
+            <p>
+                Have questions about our products?
+                Send us your enquiry and our team will get back to you.
+            </p>
+
+            <div class="details">
+                <p>📧 support@techstore.com</p>
+                <p>📞 +91 98765 43210</p>
+                <p>📍 New Delhi, India</p>
+            </div>
+
+        </div>
+
+        <form id="enquiryForm">
+
+            <input
+                type="text"
+                id="name"
+                placeholder="Your Name"
+                required>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Email Address"
+                required>
+
+            <input
+                type="tel"
+                id="phone"
+                placeholder="Phone Number"
+                required>
+
+            <select id="product" required>
+                <option value="">Select Product</option>
+                <option>Laptop</option>
+                <option>Mobile</option>
+                <option>Headphones</option>
+                <option>Smart Watch</option>
+                <option>Other</option>
+            </select>
+
+            <textarea
+                id="message"
+                placeholder="Write your enquiry..."
+                rows="5"
+                required></textarea>
+
+            <button type="submit">
+                Send Enquiry
+            </button>
+
+            <p id="success"></p>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+document.getElementById("enquiryForm").addEventListener("submit",function(event){
+
+    event.preventDefault();
+
+    document.getElementById("success").innerHTML =
+        "✓ Enquiry submitted successfully!";
+
+    document.getElementById("enquiryForm").reset();
+
+});
+</script>
+
+</body>
+</html>
