@@ -1,38 +1,51 @@
-/**
- * User.js
- * ------------------------------------------------------------------
- * MODULE 3: Mongoose schema/model for a registered user.
- *
- * The password field stores a BCRYPT HASH, never plain text — hashing
- * happens in authController.js before a user is saved.
- * ------------------------------------------------------------------
- */
+//  we use in memory database
+let users = [
+  {
+      id: 1, 
+      name: "Amit Sharma", 
+      mob: "684684xxxx", 
+      email: "amit.example@gmail.com"
+  },
+  {
+      id: 2, 
+      name: "Shiva Yadav", 
+      mob: "954684xxxx", 
+      email: "shiva.example@gmail.com"}
+];
 
-const mongoose = require('mongoose');
+let nextId = 3;
 
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, 'Name is required'],
-    trim: true
-  },
-  email: {
-    type: String,
-    required: [true, 'Email is required'],
-    unique: true, // prevents two users from sharing the same email at the DB level
-    lowercase: true,
-    trim: true,
-    match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Please enter a valid email address']
-  },
-  password: {
-    type: String,
-    required: [true, 'Password is required'],
-    minlength: [6, 'Password must be at least 6 characters'] // enforced on the pre-hash value in the controller
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
+export const getAllUsers = () => {
+  return users;
+}
+
+export const getUserById = (pid) => {
+ const found = users.find((user)=>user.id === pid)
+ return found;
+
+}
+
+
+export const addUser = (user) => {
+  user.id = nextId++;
+  users.push(user);
+  return user;
+}
+
+export const updateUser = (pid, updateData)=>{
+  const index = users.findIndex((user)=> user.id === pid);
+  if (index == -1) {
+       return false;
   }
-});
+  updateData.id = pid;
+  users[index] = updateData;
+  return updateData;
+}
 
-module.exports = mongoose.model('User', userSchema);
+export const deleteUser = (pid)=>{
+  const index = users.findIndex((user)=> user.id === pid);
+  if (index == -1) {
+       return false;
+  }
+  users.splice(index, 1);
+}
