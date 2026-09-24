@@ -5,6 +5,7 @@ const form = new EventEmitter();
 
 // Register the event listener
 form.on("submit", (username, password) => {
+
   console.log("Form submitted successfully!");
   console.log(`Username: ${username}`);
   console.log(`Password: ${password}`);
