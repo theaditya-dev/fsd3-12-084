@@ -7,3 +7,4 @@ import { mkdir} from "fs/promises";
 
 //reove directory 
 await rm("uploads",{recursive:true });
+
