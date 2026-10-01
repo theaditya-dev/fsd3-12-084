@@ -1,0 +1,861 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VisionX — Smart Glasses</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #050505;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* NAVBAR */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 7%;
+      background: rgba(5, 5, 5, 0.75);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: #7c5cff;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 35px;
+      list-style: none;
+    }
+
+    nav a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    .nav-btn {
+      padding: 11px 20px;
+      border-radius: 25px;
+      border: 1px solid #7c5cff;
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .nav-btn:hover {
+      background: #7c5cff;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 140px 8% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: #633cff;
+      filter: blur(180px);
+      opacity: 0.18;
+      right: -200px;
+      top: 100px;
+    }
+
+    .hero-content {
+      width: 48%;
+      z-index: 2;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 8px 15px;
+      border: 1px solid rgba(124,92,255,0.5);
+      border-radius: 30px;
+      color: #b6a7ff;
+      font-size: 13px;
+      margin-bottom: 25px;
+    }
+
+    .hero h1 {
+      font-size: clamp(50px, 7vw, 92px);
+      line-height: 0.95;
+      letter-spacing: -5px;
+      margin-bottom: 30px;
+    }
+
+    .hero h1 span {
+      color: #8a72ff;
+    }
+
+    .hero p {
+      color: #aaa;
+      font-size: 18px;
+      line-height: 1.7;
+      max-width: 550px;
+      margin-bottom: 35px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      padding: 15px 25px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .primary-btn {
+      background: #7c5cff;
+      color: white;
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(124,92,255,0.3);
+    }
+
+    .secondary-btn {
+      border: 1px solid #333;
+      color: white;
+    }
+
+    .secondary-btn:hover {
+      border-color: #777;
+    }
+
+    /* GLASSES */
+    .product-area {
+      width: 48%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+    }
+
+    .glasses {
+      width: 520px;
+      height: 210px;
+      position: relative;
+      transform: rotate(-3deg);
+      filter: drop-shadow(0 30px 50px rgba(124,92,255,0.25));
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .lens {
+      position: absolute;
+      width: 210px;
+      height: 130px;
+      border: 9px solid #222;
+      border-radius: 35% 35% 45% 45%;
+      background: linear-gradient(
+        145deg,
+        rgba(255,255,255,0.12),
+        rgba(100,70,255,0.12)
+      );
+      box-shadow:
+        inset 0 0 30px rgba(255,255,255,0.08),
+        0 0 25px rgba(124,92,255,0.15);
+    }
+
+    .lens::after {
+      content: "";
+      position: absolute;
+      width: 50px;
+      height: 10px;
+      background: rgba(255,255,255,0.15);
+      transform: rotate(-25deg);
+      top: 25px;
+      left: 30px;
+      border-radius: 20px;
+    }
+
+    .left-lens {
+      left: 0;
+      top: 35px;
+    }
+
+    .right-lens {
+      right: 0;
+      top: 35px;
+    }
+
+    .bridge {
+      position: absolute;
+      width: 110px;
+      height: 35px;
+      border-top: 9px solid #222;
+      top: 65px;
+      left: 205px;
+      border-radius: 50%;
+    }
+
+    .arm {
+      position: absolute;
+      height: 15px;
+      width: 130px;
+      background: #202020;
+      top: 70px;
+      border-radius: 20px;
+    }
+
+    .left-arm {
+      left: -105px;
+      transform: rotate(-12deg);
+    }
+
+    .right-arm {
+      right: -105px;
+      transform: rotate(12deg);
+    }
+
+    .camera {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: #111;
+      border: 3px solid #444;
+      border-radius: 50%;
+      top: 32px;
+      right: 180px;
+      box-shadow: 0 0 15px #7c5cff;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) rotate(-3deg);
+      }
+      50% {
+        transform: translateY(-15px) rotate(-3deg);
+      }
+    }
+
+    /* STATS */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: #222;
+      border-top: 1px solid #222;
+      border-bottom: 1px solid #222;
+    }
+
+    .stat {
+      background: #080808;
+      padding: 35px 20px;
+      text-align: center;
+    }
+
+    .stat h3 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .stat p {
+      color: #777;
+      font-size: 13px;
+    }
+
+    /* FEATURES */
+    .section {
+      padding: 120px 8%;
+    }
+
+    .section-title {
+      max-width: 700px;
+      margin-bottom: 60px;
+    }
+
+    .section-title small {
+      color: #8a72ff;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 11px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(40px, 5vw, 65px);
+      letter-spacing: -3px;
+      margin: 15px 0;
+    }
+
+    .section-title p {
+      color: #888;
+      line-height: 1.7;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .feature {
+      background: #0c0c0c;
+      border: 1px solid #1c1c1c;
+      padding: 35px;
+      border-radius: 20px;
+      transition: 0.4s;
+    }
+
+    .feature:hover {
+      transform: translateY(-8px);
+      border-color: #5140a8;
+    }
+
+    .feature-icon {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: #17122d;
+      color: #a08cff;
+      font-size: 22px;
+      margin-bottom: 25px;
+    }
+
+    .feature h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    .feature p {
+      color: #777;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    /* PRODUCT SECTION */
+    .product-section {
+      background: #090909;
+      display: flex;
+      align-items: center;
+      gap: 80px;
+    }
+
+    .product-visual {
+      flex: 1;
+      min-height: 450px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle, #1a1338, transparent 65%);
+      border-radius: 30px;
+    }
+
+    .product-info {
+      flex: 1;
+    }
+
+    .product-info h2 {
+      font-size: 50px;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+    }
+
+    .product-info > p {
+      color: #888;
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+
+    .spec-list {
+      list-style: none;
+      margin-bottom: 35px;
+    }
+
+    .spec-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 0;
+      border-bottom: 1px solid #222;
+      color: #aaa;
+    }
+
+    .spec-list span {
+      color: white;
+    }
+
+    .price {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+
+    .price small {
+      font-size: 14px;
+      color: #666;
+      font-weight: normal;
+    }
+
+    /* CTA */
+    .cta {
+      text-align: center;
+      padding: 130px 8%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: #633cff;
+      filter: blur(180px);
+      opacity: 0.12;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .cta h2 {
+      font-size: clamp(45px, 6vw, 75px);
+      letter-spacing: -4px;
+      position: relative;
+    }
+
+    .cta p {
+      color: #888;
+      margin: 20px auto 35px;
+      max-width: 500px;
+      position: relative;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 30px 8%;
+      border-top: 1px solid #1c1c1c;
+      display: flex;
+      justify-content: space-between;
+      color: #666;
+      font-size: 13px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 850px) {
+      nav ul {
+        display: none;
+      }
+
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 130px;
+      }
+
+      .hero-content,
+      .product-area {
+        width: 100%;
+      }
+
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero h1 {
+        font-size: 58px;
+      }
+
+      .product-area {
+        margin-top: 80px;
+      }
+
+      .glasses {
+        transform: scale(0.7) rotate(-3deg);
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .product-section {
+        flex-direction: column;
+      }
+
+      .product-visual,
+      .product-info {
+        width: 100%;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .hero h1 {
+        font-size: 48px;
+      }
+
+      .section {
+        padding: 80px 6%;
+      }
+
+      .glasses {
+        transform: scale(0.55) rotate(-3deg);
+      }
+
+      .product-visual {
+        min-height: 300px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">Vision<span>X</span></div>
+
+    <ul>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#technology">Technology</a></li>
+      <li><a href="#specs">Specs</a></li>
+    </ul>
+
+    <a href="#buy" class="nav-btn">Pre-order</a>
+  </nav>
+
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <div class="tag">THE FUTURE OF WEARABLE TECH</div>
+
+      <h1>
+        See more.<br>
+        <span>Do more.</span>
+      </h1>
+
+      <p>
+        Meet VisionX — intelligent smart glasses designed to keep
+        information, communication and AI assistance right in front of you.
+      </p>
+
+      <div class="buttons">
+        <a href="#buy" class="primary-btn">Get VisionX</a>
+        <a href="#features" class="secondary-btn">Explore features</a>
+      </div>
+
+    </div>
+
+
+    <div class="product-area">
+
+      <div class="glasses">
+
+        <div class="arm left-arm"></div>
+        <div class="arm right-arm"></div>
+
+        <div class="lens left-lens"></div>
+        <div class="lens right-lens"></div>
+
+        <div class="bridge"></div>
+
+        <div class="camera"></div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- STATS -->
+  <section class="stats">
+
+    <div class="stat">
+      <h3>12h</h3>
+      <p>Battery life</p>
+    </div>
+
+    <div class="stat">
+      <h3>4K</h3>
+      <p>Camera quality</p>
+    </div>
+
+    <div class="stat">
+      <h3>AI</h3>
+      <p>Built-in assistant</p>
+    </div>
+
+    <div class="stat">
+      <h3>32g</h3>
+      <p>Ultra-light design</p>
+    </div>
+
+  </section>
+
+
+  <!-- FEATURES -->
+  <section class="section" id="features">
+
+    <div class="section-title">
+      <small>Built for tomorrow</small>
+
+      <h2>Technology that disappears into your life.</h2>
+
+      <p>
+        Powerful technology shouldn't feel complicated.
+        VisionX puts intelligent features into a lightweight,
+        everyday pair of glasses.
+      </p>
+    </div>
+
+
+    <div class="features">
+
+      <div class="feature">
+
+        <div class="feature-icon">◉</div>
+
+        <h3>AI Assistant</h3>
+
+        <p>
+          Ask questions, summarize information and get
+          contextual answers without reaching for your phone.
+        </p>
+
+      </div>
+
+
+      <div class="feature">
+
+        <div class="feature-icon">◈</div>
+
+        <h3>Smart Camera</h3>
+
+        <p>
+          Capture photos and videos from your point of view
+          with a high-resolution built-in camera.
+        </p>
+
+      </div>
+
+
+      <div class="feature">
+
+        <div class="feature-icon">⌁</div>
+
+        <h3>Open-Ear Audio</h3>
+
+        <p>
+          Listen to music, calls and notifications while
+          staying aware of the world around you.
+        </p>
+
+      </div>
+
+
+      <div class="feature">
+
+        <div class="feature-icon">✦</div>
+
+        <h3>Live Translation</h3>
+
+        <p>
+          Understand conversations and signs in different
+          languages with real-time AI translation.
+        </p>
+
+      </div>
+
+
+      <div class="feature">
+
+        <div class="feature-icon">⚡</div>
+
+        <h3>All-Day Battery</h3>
+
+        <p>
+          Up to 12 hours of typical usage with fast charging
+          when you need a quick boost.
+        </p>
+
+      </div>
+
+
+      <div class="feature">
+
+        <div class="feature-icon">⌖</div>
+
+        <h3>Navigation</h3>
+
+        <p>
+          Get turn-by-turn directions through subtle audio
+          cues while keeping your eyes on the road.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- TECHNOLOGY -->
+  <section class="section product-section" id="technology">
+
+    <div class="product-visual">
+
+      <div class="glasses">
+
+        <div class="arm left-arm"></div>
+        <div class="arm right-arm"></div>
+
+        <div class="lens left-lens"></div>
+        <div class="lens right-lens"></div>
+
+        <div class="bridge"></div>
+
+        <div class="camera"></div>
+
+      </div>
+
+    </div>
+
+
+    <div class="product-info">
+
+      <small style="color:#8a72ff; letter-spacing:3px;">
+        ENGINEERED FOR HUMANS
+      </small>
+
+      <h2>Powerful. Invisible.</h2>
+
+      <p>
+        Every component is carefully engineered to fit inside
+        a comfortable everyday frame without compromising
+        performance.
+      </p>
+
+      <ul class="spec-list">
+        <li>Processor <span>VisionCore AI</span></li>
+        <li>Camera <span>12 MP</span></li>
+        <li>Audio <span>Open-ear stereo</span></li>
+        <li>Connectivity <span>Wi-Fi + Bluetooth</span></li>
+        <li>Weight <span>32 grams</span></li>
+      </ul>
+
+    </div>
+
+  </section>
+
+
+  <!-- SPECS / BUY -->
+  <section class="section" id="specs">
+
+    <div class="section-title">
+      <small>One pair. Everything you need.</small>
+      <h2>Designed to keep up.</h2>
+      <p>
+        From your morning commute to your evening walk,
+        VisionX is built to stay with you all day.
+      </p>
+    </div>
+
+  </section>
+
+
+  <!-- CTA -->
+  <section class="cta" id="buy">
+
+    <h2>Your world.<br>Upgraded.</h2>
+
+    <p>
+      Experience the next generation of wearable technology.
+    </p>
+
+    <div class="buttons" style="justify-content:center;">
+      <a href="#" class="primary-btn" id="orderBtn">Pre-order VisionX — $399</a>
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div>© 2026 VisionX</div>
+
+    <div>Smart glasses for a smarter world.</div>
+
+  </footer>
+
+
+  <script>
+    const orderBtn = document.getElementById("orderBtn");
+
+    orderBtn.addEventListener("click", function(event) {
+      event.preventDefault();
+
+      alert(
+        "Thanks for your interest in VisionX! 🚀\n\n" +
+        "Pre-orders will open soon."
+      );
+    });
+  </script>
+
+</body>
+</html>
+```
