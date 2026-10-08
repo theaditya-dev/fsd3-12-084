@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPrime - Online Coaching Classes Platform</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen flex flex-col justify-between">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2 cursor-pointer" onclick="switchPage('home')">
+                    <div class="bg-brand-600 text-white p-2 rounded-xl flex items-center justify-center">
+                        <i class="fa-solid fa-graduation-cap text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold text-gray-900 tracking-tight">Edu<span class="text-brand-600">Prime</span></span>
+                </div>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <button onclick="switchPage('home')" id="nav-home" class="nav-link font-medium text-brand-600 transition-colors duration-150">Home</button>
+                    <button onclick="switchPage('courses')" id="nav-courses" class="nav-link font-medium text-gray-600 hover:text-brand-600 transition-colors duration-150">Courses</button>
+                    <button onclick="switchPage('about')" id="nav-about" class="nav-link font-medium text-gray-600 hover:text-brand-600 transition-colors duration-150">About Us</button>
+                    <button onclick="switchPage('contact')" id="nav-contact" class="nav-link font-medium text-gray-600 hover:text-brand-600 transition-colors duration-150">Contact Us</button>
+                    <button onclick="switchPage('auth')" id="nav-auth" class="bg-brand-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-brand-700 transition-colors duration-150 shadow-sm">Login / Register</button>
+                </nav>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-gray-600 hover:text-gray-900 focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-100 px-4 pt-2 pb-4 space-y-2">
+            <button onclick="switchPage('home'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-brand-600">Home</button>
+            <button onclick="switchPage('courses'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-brand-600">Courses</button>
+            <button onclick="switchPage('about'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-brand-600">About Us</button>
+            <button onclick="switchPage('contact'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-brand-600">Contact Us</button>
+            <button onclick="switchPage('auth'); toggleMobileMenu();" class="block w-full text-center mt-2 bg-brand-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-brand-700">Login / Register</button>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+
+        <!-- ==================== PAGE 1: HOME ==================== -->
+        <div id="page-home" class="page-view animate-fade">
+            <!-- Hero Section -->
+            <section class="relative bg-gradient-to-br from-indigo-900 via-brand-700 to-indigo-800 text-white py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+                <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
+                    <div class="space-y-6 text-center md:text-left">
+                        <span class="inline-flex items-center space-x-2 bg-white/10 px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm border border-white/20">
+                            <i class="fa-solid fa-sparkles text-yellow-400"></i>
+                            <span>Trusted by 10,000+ Students Worldwide</span>
+                        </span>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                            Unlock Your Potential with Expert Coaching
+                        </h1>
+                        <p class="text-lg sm:text-xl text-indigo-100 max-w-xl mx-auto md:mx-0">
+                            Master high-demand subjects with live interactive sessions, top-tier mentorship, and a structured curriculum designed for your success.
+                        </p>
+                        <div class="flex flex-col sm:flex-row justify-center md:justify-start gap-4 pt-4">
+                            <button onclick="switchPage('courses')" class="bg-white text-brand-700 font-semibold px-8 py-3.5 rounded-xl shadow-lg hover:bg-gray-100 transition duration-200">
+                                Explore Courses
+                            </button>
+                            <button onclick="switchPage('auth')" class="bg-brand-600 border border-white/30 text-white font-semibold px-8 py-3.5 rounded-xl hover:bg-brand-700 transition duration-200">
+                                Get Started Free
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex justify-center">
+                        <div class="relative w-full max-w-md bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 shadow-2xl">
+                            <div class="flex items-center space-x-4 mb-6">
+                                <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-indigo-900 font-bold text-xl">
+                                    <i class="fa-solid fa-award"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg">Top Rated Faculty</h4>
+                                    <p class="text-xs text-indigo-200">Learn directly from industry veterans</p>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-white/5 p-4 rounded-xl border border-white/10 flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="text-brand-300"><i class="fa-solid fa-check-circle text-xl"></i></div>
+                                        <span class="text-sm font-medium">100% Interactive Live Classes</span>
+                                    </div>
+                                    <span class="text-xs bg-green-500/20 text-green-300 px-2 py-1 rounded-full">Active</span>
+                                </div>
+                                <div class="bg-white/5 p-4 rounded-xl border border-white/10 flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="text-brand-300"><i class="fa-solid fa-check-circle text-xl"></i></div>
+                                        <span class="text-sm font-medium">24/7 Doubt Clearing Support</span>
+                                    </div>
+                                    <span class="text-xs bg-green-500/20 text-green-300 px-2 py-1 rounded-full">Ready</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Courses Preview -->
+            <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div class="flex justify-between items-end mb-12">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-900">Featured Courses</h2>
+                        <p class="text-gray-600 mt-2">Handpicked classes to boost your academic and professional growth.</p>
+                    </div>
+                    <button onclick="switchPage('courses')" class="hidden sm:inline-flex items-center space-text font-semibold text-brand-600 hover:text-brand-700">
+                        <span>View All Courses</span>
+                        <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Course 1 -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition duration-200 flex flex-col justify-between">
+                        <div>
+                            <div class="h-48 bg-indigo-50 flex items-center justify-center text-brand-600">
+                                <i class="fa-solid fa-calculator text-5xl"></i>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <span class="text-xs font-bold uppercase tracking-wider text-brand-600 bg-brand-50 px-3 py-1 rounded-full">Mathematics</span>
+                                <h3 class="text-xl font-bold text-gray-900">Advanced Calculus & Algebra</h3>
+                                <p class="text-gray-600 text-sm">Master complex equations, limits, derivatives, and vector spaces with ease.</p>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0 flex items-center justify-between border-t border-gray-50 mt-4">
+                            <span class="text-2xl font-extrabold text-gray-900">$199</span>
+                            <button onclick="switchPage('courses')" class="bg-brand-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-brand-700">Enroll Now</button>
+                        </div>
+                    </div>
+                    <!-- Course 2 -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition duration-200 flex flex-col justify-between">
+                        <div>
+                            <div class="h-48 bg-blue-50 flex items-center justify-center text-blue-600">
+                                <i class="fa-solid fa-atom text-5xl"></i>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full">Physics</span>
+                                <h3 class="text-xl font-bold text-gray-900">Quantum Physics Fundamentals</h3>
+                                <p class="text-gray-600 text-sm">Explore wave-particle duality, quantum mechanics, and atomic structures.</p>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0 flex items-center justify-between border-t border-gray-50 mt-4">
+                            <span class="text-2xl font-extrabold text-gray-900">$249</span>
+                            <button onclick="switchPage('courses')" class="bg-brand-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-brand-700">Enroll Now</button>
+                        </div>
+                    </div>
+                    <!-- Course 3 -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition duration-200 flex flex-col justify-between">
+                        <div>
+                            <div class="h-48 bg-purple-50 flex items-center justify-center text-purple-600">
+                                <i class="fa-solid fa-code text-5xl"></i>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <span class="text-xs font-bold uppercase tracking-wider text-purple-600 bg-purple-50 px-3 py-1 rounded-full">Development</span>
+                                <h3 class="text-xl font-bold text-gray-900">Full-Stack Web Development</h3>
+                                <p class="text-gray-600 text-sm">Build modern responsive web apps using HTML, Tailwind, JavaScript, and Node.</p>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0 flex items-center justify-between border-t border-gray-50 mt-4">
+                            <span class="text-2xl font-extrabold text-gray-900">$299</span>
+                            <button onclick="switchPage('courses')" class="bg-brand-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-brand-700">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 text-center sm:hidden">
+                    <button onclick="switchPage('courses')" class="font-semibold text-brand-600 hover:text-brand-700">
+                        View All Courses <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Key Benefits Section -->
+            <section class="bg-indigo-50/50 py-20 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-7xl mx-auto">
+                    <div class="text-center max-w-2xl mx-auto mb-16">
+                        <h2 class="text-3xl font-bold text-gray-900">Why Choose EduPrime?</h2>
+                        <p class="text-gray-600 mt-2">We provide everything you need to succeed in your academic and professional goals.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 space-y-4">
+                            <div class="w-14 h-14 bg-brand-100 text-brand-600 rounded-xl flex items-center justify-center text-2xl">
+                                <i class="fa-solid fa-chalkboard-user"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Expert Mentors</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">Learn directly from verified industry leaders and top university professors with years of experience.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 space-y-4">
+                            <div class="w-14 h-14 bg-brand-100 text-brand-600 rounded-xl flex items-center justify-center text-2xl">
+                                <i class="fa-solid fa-clock-rotate-left"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Flexible Schedule</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">Access live classes or catch up on recordings anytime, anywhere, at your own comfortable pace.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 space-y-4">
+                            <div class="w-14 h-14 bg-brand-100 text-brand-600 rounded-xl flex items-center justify-center text-2xl">
+                                <i class="fa-solid fa-certificate"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Recognized Certification</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">Earn verified certificates upon course completion to showcase your proficiency to employers.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials -->
+            <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <h2 class="text-3xl font-bold text-gray-900">What Our Students Say</h2>
+                    <p class="text-gray-600 mt-2">Hear success stories from students who transformed their learning journey.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 space-y-6">
+                        <div class="flex items-center space-x-1 text-yellow-400">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-700 italic">"The calculus classes were incredible. My grades improved from a C to an A within just one semester. The mentors explain concepts so clearly!"</p>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center font-bold text-gray-600">SA</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900">Sarah Anderson</h4>
+                                <p class="text-xs text-gray-500">Engineering Student</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 space-y-6">
+                        <div class="flex items-center space-x-1 text-yellow-400">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-700 italic">"The web development course gave me the exact hands-on portfolio projects I needed to land my first junior software developer job. Highly recommended!"</p>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center font-bold text-gray-600">JD</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900">James Davis</h4>
+                                <p class="text-xs text-gray-500">Junior Developer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== PAGE 2: COURSES ==================== -->
+        <div id="page-courses" class="page-view hidden animate-fade">
+            <div class="bg-brand-700 text-white py-16 px-4 text-center">
+                <h1 class="text-4xl font-extrabold tracking-tight">Our Coaching Courses</h1>
+                <p class="text-indigo-100 mt-2 max-w-xl mx-auto">Explore our diverse catalog of expert-led courses designed for success.</p>
+            </div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Course 1 -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col justify-between hover:shadow-md transition">
+                        <div>
+                            <div class="h-48 bg-indigo-50 flex items-center justify-center text-brand-600">
+                                <i class="fa-solid fa-calculator text-5xl"></i>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <span class="text-xs font-bold uppercase tracking-wider text-brand-600 bg-brand-50 px-3 py-1 rounded-full">Mathematics</span>
+                                <h3 class="text-xl font-bold text-gray-900">Advanced Calculus & Algebra</h3>
+                                <p class="text-gray-600 text-sm">Master complex equations, limits, derivatives, and vector spaces with ease.</p>
+                                <div class="flex items-center text-xs text-gray-500 space-x-4 pt-2">
+                                    <span><i class="fa-regular fa-clock mr-1"></i> 12 Weeks</span>
+                                    <span><i class="fa-solid fa-user-group mr-1"></i> 340 Enrolled</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0 flex items-center justify-between border-t border-gray-50 mt-4">
+                            <span class="text-2xl font-extrabold text-gray-900">$199</span>
+                            <button onclick="alertEnroll('Advanced Calculus & Algebra')" class="bg-brand-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-brand-700">Enroll Now</button>
+                        </div>
+                    </div>
+
+                    <!-- Course 2 -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col justify-between hover:shadow-md transition">
+                        <div>
+                            <div class="h-48 bg-blue-50 flex items-center justify-center text-blue-600">
+                                <i class="fa-solid fa-atom text-5xl"></i>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full">Physics</span>
+                                <h3 class="text-xl font-bold text-gray-900">Quantum Physics Fundamentals</h3>
+                                <p class="text-gray-600 text-sm">Explore wave-particle duality, quantum mechanics, and atomic structures.</p>
+                                <div class="flex items-center text-xs text-gray-500 space-x-4 pt-2">
+                                    <span><i class="fa-regular fa-clock mr-1"></i> 10 Weeks</span>
+                                    <span><i class="fa-solid fa-user-group mr-1"></i> 215 Enrolled</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0 flex items-center justify-between border-t border-gray-50 mt-4">
+                            <span class="text-2xl font-extrabold text-gray-900">$249</span>
+                            <button onclick="alertEnroll('Quantum Physics Fundamentals')" class="bg-brand-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-brand-700">Enroll Now</button>
+                        </div>
+                    </div>
+
+                    <!-- Course 3 -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col justify-between hover:shadow-md transition">
+                        <div>
+                            <div class="h-48 bg-emerald-50 flex items-center justify-center text-emerald-600">
+                                <i class="fa-solid fa-book-open-reader text-5xl"></i>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">Literature</span>
+                                <h3 class="text-xl font-bold text-gray-900">English Literature & Critical Analysis</h3>
+                                <p class="text-gray-600 text-sm">Deep dive into classic and modern prose, poetry, and essay composition.</p>
+                                <div class="flex items-center text-xs text-gray-500 space-x-4 pt-2">
+                                    <span><i class="fa-regular fa-clock mr-1"></i> 8 Weeks</span>
+                                    <span><i class="fa-solid fa-user-group mr-1"></i> 180 Enrolled</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0 flex items-center justify-between border-t border-gray-50 mt-4">
+                            <span class="text-2xl font-extrabold text-gray-900">$149</span>
+                            <button onclick="alertEnroll('English Literature & Critical Analysis')" class="bg-brand-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-brand-700">Enroll Now</button>
+                        </div>
+                    </div>
+
+                    <!-- Course 4 -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col justify-between hover:shadow-md transition">
+                        <div>
+                            <div class="h-48 bg-purple-50 flex items-center justify-center text-purple-600">
+                                <i class="fa-solid fa-code text-5xl"></i>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <span class="text-xs font-bold uppercase tracking-wider text-purple-600 bg-purple-50 px-3 py-1 rounded-full">Development</span>
+                                <h3 class="text-xl font-bold text-gray-900">Full-Stack Web Development</h3>
+                                <p class="text-gray-600 text-sm">Build modern responsive web apps using HTML, Tailwind, JavaScript, and Node.</p>
+                                <div class="flex items-center text-xs text-gray-500 space-x-4 pt-2">
+                                    <span><i class="fa-regular fa-clock mr-1"></i> 16 Weeks</span>
+                                    <span><i class="fa-solid fa-user-group mr-1"></i> 510 Enrolled</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0 flex items-center justify-between border-t border-gray-50 mt-4">
+                            <span class="text-2xl font-extrabold text-gray-900">$299</span>
+                            <button onclick="alertEnroll('Full-Stack Web Development')" class="bg-brand-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-brand-700">Enroll Now</button>
+                        </div>
+                    </div>
+
+                    <!-- Course 5 -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col justify-between hover:shadow-md transition">
+                        <div>
+                            <div class="h-48 bg-amber-50 flex items-center justify-center text-amber-600">
+                                <i class="fa-solid fa-database text-5xl"></i>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <span class="text-xs font-bold uppercase tracking-wider text-amber-600 bg-amber-50 px-3 py-1 rounded-full">Data Science</span>
+                                <h3 class="text-xl font-bold text-gray-900">Data Science & Python Basics</h3>
+                                <p class="text-gray-600 text-sm">Learn pandas, numpy, data visualization, and foundational machine learning concepts.</p>
+                                <div class="flex items-center text-xs text-gray-500 space-x-4 pt-2">
+                                    <span><i class="fa-regular fa-clock mr-1"></i> 14 Weeks</span>
+                                    <span><i class="fa-solid fa-user-group mr-1"></i> 420 Enrolled</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0 flex items-center justify-between border-t border-gray-50 mt-4">
+                            <span class="text-2xl font-extrabold text-gray-900">$279</span>
+                            <button onclick="alertEnroll('Data Science & Python Basics')" class="bg-brand-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-brand-700">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== PAGE 3: ABOUT US ==================== -->
+        <div id="page-about" class="page-view hidden animate-fade">
+            <div class="bg-brand-700 text-white py-16 px-4 text-center">
+                <h1 class="text-4xl font-extrabold tracking-tight">About EduPrime</h1>
+                <p class="text-indigo-100 mt-2 max-w-xl mx-auto">Empowering learners worldwide through quality education and expert mentorship.</p>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                <!-- Mission & Vision -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
+                    <div class="space-y-6">
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-600 bg-brand-50 px-3 py-1 rounded-full">Our Mission</span>
+                        <h2 class="text-3xl font-bold text-gray-900">Making Premium Education Accessible to Everyone</h2>
+                        <p class="text-gray-600 leading-relaxed">
+                            At EduPrime, we believe that geography or economic status should never be a barrier to world-class learning. Founded in 2020, our platform bridges the gap between ambitious students and elite educators through innovative online coaching tools.
+                        </p>
+                    </div>
+                    <div class="bg-indigo-50 p-8 rounded-3xl border border-indigo-100 space-y-4">
+                        <h3 class="text-xl font-bold text-gray-900 flex items-center">
+                            <i class="fa-solid fa-eye text-brand-600 mr-3"></i> Our Vision
+                        </h3>
+                        <p class="text-gray-700 leading-relaxed">
+                            To build a global digital campus where interactive learning, real-time collaboration, and personalized guidance create exceptional career and academic outcomes.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Team Introduction -->
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <h2 class="text-3xl font-bold text-gray-900">Meet Our Leadership Team</h2>
+                    <p class="text-gray-600 mt-2">Passionate educators and innovators leading our mission.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden text-center p-6 space-y-4">
+                        <div class="w-24 h-24 bg-brand-100 text-brand-600 rounded-full mx-auto flex items-center justify-center text-3xl font-bold">
+                            DR
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Dr. Robert Vance</h3>
+                            <p class="text-brand-600 text-sm font-medium">Founder & CEO</p>
+                        </div>
+                        <p class="text-gray-600 text-sm">Former professor of Mathematics with 15+ years of experience in higher education.</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden text-center p-6 space-y-4">
+                        <div class="w-24 h-24 bg-blue-100 text-blue-600 rounded-full mx-auto flex items-center justify-center text-3xl font-bold">
+                            SL
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Sophia Lin</h3>
+                            <p class="text-blue-600 text-sm font-medium">Head of Academics</p>
+                        </div>
+                        <p class="text-gray-600 text-sm">Curriculum specialist dedicated to interactive and student-centric coaching methods.</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden text-center p-6 space-y-4">
+                        <div class="w-24 h-24 bg-purple-100 text-purple-600 rounded-full mx-auto flex items-center justify-center text-3xl font-bold">
+                            MK
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Marcus King</h3>
+                            <p class="text-purple-600 text-sm font-medium">Chief Technology Officer</p>
+                        </div>
+                        <p class="text-gray-600 text-sm">Tech architect building frictionless online classroom experiences for global students.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== PAGE 4: CONTACT US ==================== -->
+        <div id="page-contact" class="page-view hidden animate-fade">
+            <div class="bg-brand-700 text-white py-16 px-4 text-center">
+                <h1 class="text-4xl font-extrabold tracking-tight">Contact Us</h1>
+                <p class="text-indigo-100 mt-2 max-w-xl mx-auto">Have questions? We'd love to hear from you. Reach out anytime.</p>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- Contact Form -->
+                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 space-y-6">
+                        <h3 class="text-2xl font-bold text-gray-900">Send Us a Message</h3>
+                        <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                                <input type="text" required placeholder="John Doe" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                <input type="email" required placeholder="john@example.com" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                                <textarea rows="4" required placeholder="How can we help you?" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-500"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-brand-600 text-white py-3.5 rounded-xl font-semibold hover:bg-brand-700 transition">Send Message</button>
+                        </form>
+                    </div>
+
+                    <!-- Contact Details -->
+                    <div class="space-y-8 flex flex-col justify-center">
+                        <div class="space-y-2">
+                            <span class="text-xs font-bold uppercase tracking-wider text-brand-600 bg-brand-50 px-3 py-1 rounded-full">Get in Touch</span>
+                            <h2 class="text-3xl font-bold text-gray-900">We're Here to Help</h2>
+                            <p class="text-gray-600">Whether you need help choosing a course or technical support, our team is always ready.</p>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-brand-50 text-brand-600 rounded-xl flex items-center justify-center text-xl flex-shrink-0">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900">Email Us</h4>
+                                    <p class="text-gray-600 text-sm">support@eduprime.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-brand-50 text-brand-600 rounded-xl flex items-center justify-center text-xl flex-shrink-0">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900">Call Us</h4>
+                                    <p class="text-gray-600 text-sm">+1 (555) 234-5678</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-brand-50 text-brand-600 rounded-xl flex items-center justify-center text-xl flex-shrink-0">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900">Office Location</h4>
+                                    <p class="text-gray-600 text-sm">100 Innovation Drive, Suite 400, Silicon Valley, CA</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== PAGE 5: LOGIN / REGISTER ==================== -->
+        <div id="page-auth" class="page-view hidden animate-fade py-16 px-4">
+            <div class="max-w-md mx-auto bg-white rounded-3xl shadow-sm border border-gray-100 p-8 space-y-6">
+                <!-- Tab Headers -->
+                <div class="flex border-b border-gray-100">
+                    <button onclick="switchAuthTab('login')" id="tab-login" class="flex-1 pb-4 font-bold text-brand-600 border-b-2 border-brand-600 text-center transition">Login</button>
+                    <button onclick="switchAuthTab('register')" id="tab-register" class="flex-1 pb-4 font-medium text-gray-400 border-b-2 border-transparent text-center transition">Register</button>
+                </div>
+
+                <!-- Login Form -->
+                <div id="form-login" class="auth-form space-y-4">
+                    <div class="text-center mb-4">
+                        <h2 class="text-2xl font-bold text-gray-900">Welcome Back</h2>
+                        <p class="text-sm text-gray-500">Please enter your details to sign in.</p>
+                    </div>
+                    <form onsubmit="handleAuthSubmit(event, 'Login')" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                            <input type="email" required placeholder="john@example.com" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                            <input type="password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                        </div>
+                        <button type="submit" class="w-full bg-brand-600 text-white py-3.5 rounded-xl font-semibold hover:bg-brand-700 transition">Sign In</button>
+                    </form>
+                </div>
+
+                <!-- Register Form -->
+                <div id="form-register" class="auth-form hidden space-y-4">
+                    <div class="text-center mb-4">
+                        <h2 class="text-2xl font-bold text-gray-900">Create Account</h2>
+                        <p class="text-sm text-gray-500">Join our learning platform today.</p>
+                    </div>
+                    <form onsubmit="handleAuthSubmit(event, 'Registration')" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <input type="text" required placeholder="John Doe" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                            <input type="email" required placeholder="john@example.com" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                            <input type="password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                        </div>
+                        <button type="submit" class="w-full bg-brand-600 text-white py-3.5 rounded-xl font-semibold hover:bg-brand-700 transition">Create Account</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-gray-900 text-white pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            <!-- Brand Info -->
+            <div class="space-y-4">
+                <div class="flex items-center space-x-2">
+                    <div class="bg-brand-600 text-white p-2 rounded-xl flex items-center justify-center">
+                        <i class="fa-solid fa-graduation-cap text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight">Edu<span class="text-brand-500">Prime</span></span>
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Empowering students globally with top-tier online coaching classes, expert mentorship, and interactive curricula.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><button onclick="switchPage('home')" class="hover:text-white transition">Home</button></li>
+                    <li><button onclick="switchPage('courses')" class="hover:text-white transition">Courses</button></li>
+                    <li><button onclick="switchPage('about')" class="hover:text-white transition">About Us</button></li>
+                    <li><button onclick="switchPage('contact')" class="hover:text-white transition">Contact Us</button></li>
+                </ul>
+            </div>
+
+            <!-- Support -->
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Support</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="#" onclick="switchPage('contact'); return false;" class="hover:text-white transition">Help Center</a></li>
+                    <li><a href="#" onclick="switchPage('auth'); return false;" class="hover:text-white transition">Student Portal</a></li>
+                    <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <!-- Social Media Icons -->
+            <div class="space-y-4">
+                <h4 class="text-lg font-semibold mb-4">Follow Us</h4>
+                <div class="flex space-x-4">
+                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-300 hover:bg-brand-600 hover:text-white transition" aria-label="Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-300 hover:bg-brand-600 hover:text-white transition" aria-label="Twitter">
+                        <i class="fa-brands fa-twitter"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-300 hover:bg-brand-600 hover:text-white transition" aria-label="LinkedIn">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-300 hover:bg-brand-600 hover:text-white transition" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 border-t border-gray-800 text-center text-sm text-gray-500">
+            &copy; 2026 EduPrime Online Coaching Classes. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Page switching logic
+        function switchPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page-view');
+            pages.forEach(p => p.classList.add('hidden'));
+
+            // Show selected page
+            const targetPage = document.getElementById(`page-${pageId}`);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Update active navbar styles
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('text-brand-600', 'font-semibold');
+                link.classList.add('text-gray-600');
+            });
+
+            const activeNav = document.getElementById(`nav-${pageId}`);
+            if (activeNav) {
+                activeNav.classList.remove('text-gray-600');
+                activeNav.classList.add('text-brand-600', 'font-semibold');
+            }
+        }
+
+        // Toggle Mobile Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Switch Auth Tabs (Login / Register)
+        function switchAuthTab(tab) {
+            const loginTab = document.getElementById('tab-login');
+            const registerTab = document.getElementById('tab-register');
+            const loginForm = document.getElementById('form-login');
+            const registerForm = document.getElementById('form-register');
+
+            if (tab === 'login') {
+                loginTab.classList.add('text-brand-600', 'border-brand-600', 'font-bold');
+                loginTab.classList.remove('text-gray-400', 'border-transparent', 'font-medium');
+                registerTab.classList.remove('text-brand-600', 'border-brand-600', 'font-bold');
+                registerTab.classList.add('text-gray-400', 'border-transparent', 'font-medium');
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+            } else {
+                registerTab.classList.add('text-brand-600', 'border-brand-600', 'font-bold');
+                registerTab.classList.remove('text-gray-400', 'border-transparent', 'font-medium');
+                loginTab.classList.remove('text-brand-600', 'border-brand-600', 'font-bold');
+                loginTab.classList.add('text-gray-400', 'border-transparent', 'font-medium');
+                registerForm.classList.remove('hidden');
+                loginForm.classList.add('hidden');
+            }
+        }
+
+        // Action Handlers
+        function alertEnroll(courseName) {
+            showNotification(`Thank you for your interest! Redirecting to enrollment for: ${courseName}`);
+        }
+
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            showNotification('Thank you! Your message has been sent successfully.');
+            event.target.reset();
+        }
+
+        function handleAuthSubmit(event, actionType) {
+            event.preventDefault();
+            showNotification(`${actionType} successful! Welcome to EduPrime.`);
+            event.target.reset();
+        }
+
+        // Custom non-blocking message box replacing alert()
+        function showNotification(message) {
+            const existing = document.getElementById('custom-toast');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.id = 'custom-toast';
+            toast.className = 'fixed bottom-5 right-5 z-50 bg-gray-900 text-white px-6 py-3 rounded-xl shadow-lg border border-gray-800 text-sm flex items-center space-x-3 transition-all duration-300';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-green-400 text-lg"></i><span>${message}</span>`;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
